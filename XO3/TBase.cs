@@ -12,6 +12,8 @@ namespace XO3
         {
 
         }
+        
+        public int cell_count {get {return 4; } } 
 
         public void Run(TPole Pole)
         {
@@ -27,9 +29,13 @@ namespace XO3
                 }
             }
 
-            for (int i = 0; i < 3; i++)
+            // for (int i = 0; i < 3; i++)
+            // {
+            //     for (int j = 0; j < 3; j++)
+            //     {
+            for (int i = 0; i < cell_count; i++) // labvit
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < cell_count; j++) // labvit
                 {
                     if (Pole.Move(i, j) != Result.Error)
                     {

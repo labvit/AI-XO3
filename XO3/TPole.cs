@@ -18,6 +18,7 @@ namespace XO3
     class TPole
     {
         public Canvas g;
+        public int cell_count{ get{ return 4; } } // labvit
         TextBox tb;
         TextBox tbCount;
         public double H;
@@ -76,11 +77,13 @@ namespace XO3
         {
             Brush br = Brushes.Blue;
 
-            for (int i = 0; i < 4; i++)
+            // for (int i = 0; i < 4; i++)
+            for (int i = 0; i < cell_count + 1 ; i++) // labvit
             {
                 Line L = new Line();
                 L.Stroke = br;
-                L.X1 = (H / 3) * i;
+                // L.X1 = (H / 3) * i;
+                L.X1 = (H / cell_count ) * i; // labvit
                 L.X2 = L.X1;
                 L.Y1 = 0;
                 L.Y2 = H;
@@ -89,7 +92,8 @@ namespace XO3
 
                 Line M = new Line();
                 M.Stroke = br;
-                M.Y1 = (H / 3) * i;
+                // M.Y1 = (H / 3) * i;
+                M.Y1 = (H / cell_count) * i; // labvit
                 M.Y2 = M.Y1;
                 M.X1 = 0;
                 M.X2 = H;
@@ -208,11 +212,11 @@ namespace XO3
 
             int a = QL.Get_A(s, 0.1, out q);
 
-            int[] ij = Pos.Get_ij(a);
+            int[] ij = Pos.Get_ij(a); // !!!!!!!!!
 
             TPosition P = PreMove(ij[0], ij[1]);
 
-            int[] ix = new int[4];
+            // int[] ix = new int[4]; /////!!!!!!!!!!!
 
             double r = 0;
 
@@ -254,7 +258,8 @@ namespace XO3
 
         void DrawLine(int i1, int j1, int i2, int j2)
         {
-            double H3 = H / 3;
+            // double H3 = H / 3;
+            double H3 = H / cell_count; // labvit
 
             Brush br = Brushes.Black;
 
@@ -274,7 +279,8 @@ namespace XO3
 
         void DrawMark(int i, int j)
         {
-            double H3 = H / 3;
+            // double H3 = H / 3;
+            double H3 = H / cell_count; // labvit
 
             if(V == 'X')
             {
@@ -321,34 +327,42 @@ namespace XO3
             i = -1;
             j = -1;
 
-            double H3 = H / 3.0;
+            // double H3 = H / 3.0;
+            double H3 = H / cell_count; // labvit
 
-            if (x < H3)
-            {
-                i = 0;
-            }
-            if ((x > H3) && (x < H3 * 2))
-            {
-                i = 1;
-            }
-            if (x > 2 * H3)
-            {
-                i = 2;
-            }
+        //     if (x < H3)
+        //     {
+        //         i = 0;
+        //     }
+        //     if ((x > H3) && (x < H3 * 2))
+        //     {
+        //         i = 1;
+        //     }
+        //     if (x > 2 * H3)
+        //     {
+        //         i = 2;
+        //     }
 
-            if (y < H3)
-            {
-                j = 0;
-            }
-            if ((y > H3) && (y < H3 * 2))
-            {
-                j = 1;
-            }
-            if (y > 2 * H3)
-            {
-                j = 2;
-            }
-        }
-
+        //     if (y < H3)
+        //     {
+        //         j = 0;
+        //     }
+        //     if ((y > H3) && (y < H3 * 2))
+        //     {
+        //         j = 1;
+        //     }
+        //     if (y > 2 * H3)
+        //     {
+        //         j = 2;
+        //     }
+        // }
+          // { labvit
+          for(int counter =0; counter < cell_count; counter++){
+          	if( x > H3 * counter )
+          	    i++;
+          	if( y > H3 * counter)
+          	    j++;
+          }
+         // } labvit
     }
 }

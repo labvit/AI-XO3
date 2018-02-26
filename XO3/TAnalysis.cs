@@ -129,36 +129,73 @@ namespace XO3
     class TFinal
     {
         public TCoords[] ForWin; // Все возможные позиции для выигрыша
-
+      
         public TFinal()
         {
             ForWin = new TCoords[MaxWin];
 
-            ForWin[0] = new TCoords(new TCoord(0, 0), new TCoord(0, 1), new TCoord(0, 2));
-            ForWin[1] = new TCoords(new TCoord(1, 0), new TCoord(1, 1), new TCoord(1, 2));
-            ForWin[2] = new TCoords(new TCoord(2, 0), new TCoord(2, 1), new TCoord(2, 2));
+            // ForWin[0] = new TCoords(new TCoord(0, 0), new TCoord(0, 1), new TCoord(0, 2));  // --> 1
+            // ForWin[1] = new TCoords(new TCoord(1, 0), new TCoord(1, 1), new TCoord(1, 2));  
+            // ForWin[2] = new TCoords(new TCoord(2, 0), new TCoord(2, 1), new TCoord(2, 2));
 
-            ForWin[3] = new TCoords(new TCoord(0, 0), new TCoord(1, 0), new TCoord(2, 0));
-            ForWin[4] = new TCoords(new TCoord(0, 1), new TCoord(1, 1), new TCoord(2, 1));
-            ForWin[5] = new TCoords(new TCoord(0, 2), new TCoord(1, 2), new TCoord(2, 2));
+            // ForWin[3] = new TCoords(new TCoord(0, 0), new TCoord(1, 0), new TCoord(2, 0)); // --> 2
+            // ForWin[4] = new TCoords(new TCoord(0, 1), new TCoord(1, 1), new TCoord(2, 1));
+            // ForWin[5] = new TCoords(new TCoord(0, 2), new TCoord(1, 2), new TCoord(2, 2));
 
-            ForWin[6] = new TCoords(new TCoord(0, 0), new TCoord(1, 1), new TCoord(2, 2));
-            ForWin[7] = new TCoords(new TCoord(0, 2), new TCoord(1, 1), new TCoord(2, 0));
+            // ForWin[6] = new TCoords(new TCoord(0, 0), new TCoord(1, 1), new TCoord(2, 2));
+            // ForWin[7] = new TCoords(new TCoord(0, 2), new TCoord(1, 1), new TCoord(2, 0));
+
+            /////// labvit
+            ///
+            for( int i = 0; i < cell_count; i++){ // <-- 1
+                ForWin[i] = new TCoords();
+                for(int j = 0; j < cell_count; j++)
+                   ForWin[i].Add(new TCoord(i,j));
+            }
+            for( int i = 0; i < cell_count; i++){ // <-- 2
+                ForWin[i + cell_count] = new TCoords();
+                for(int j = 0; j < cell_count; j++)
+                   ForWin[i + cell_count].Add(new TCoord(j,i));
+            }
+            ForWin[2*cell_count] = new TCoords();
+            for(int j = 0; j < cell_count; j++)
+                ForWin[2* cell_count].Add(new TCoord(j,j));
+
+            ForWin[ 2*cell_count + 1] = new TCoords();
+            for(int j = 0; j < cell_count; j++)
+                ForWin[ 2*cell_count + 1].Add(new TCoord(i,cell_count - i - 1));
+
+            ///
+            /////// end labvit
+            
         }
 
-        public int MaxWin { get { return 8; } }
+       public int cell_count { get{return 4;} } // labvit
+
+        // public int MaxWin { get { return 8; } }
+        public int MaxWin { get { return 2 *cell_count + 2  ; } } // labvit
     }
 
     class TCoords
     {
-        public TCoord[] C;
-        public TCoords(TCoord C1, TCoord C2, TCoord C3)
-        {
-            C = new TCoord[3];
-            C[0] = C1;
-            C[1] = C2;
-            C[2] = C3;
+        public List<TCoord> C;
+        // public TCoords(TCoord C1, TCoord C2, TCoord C3)
+        // {
+        //     C = new TCoord[3];
+        //     C[0] = C1;
+        //     C[1] = C2;
+        //     C[2] = C3;
+        // }
+   
+        // { labvit
+        public TCoords(){} // labvit
+      
+        public int cell_count { get{return 4;} }
+
+        public void add(TCoord C1){
+            C.Add(C1);
         }
+        // } labvit
 
         public TAnalysisRes What(TPosition Pos)
         {
@@ -192,12 +229,14 @@ namespace XO3
 
             if(C_ == 1)
             {
-                if(C_X == 2)
+                // if(C_X == 2) 
+                if(C_X == cell_count - 1) // labvit
                 {
                     Res.Act = ActionType.Def;
                 }
 
-                if(C_O == 2)
+                // if(C_O == 2)
+                if(C_O == cell_count - 1) // labvit
                 {
                     Res.Act = ActionType.Win;
                 }
