@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XO3
 {
@@ -54,7 +50,7 @@ namespace XO3
             int pointer = 0;
 
             // int[] ij = new int[9];
-            int[] ij = new int[cell_count]; // labvit
+            int[] ij = new int[cell_count*cell_count]; // labvit
 
             // for (i = 0; i < 3; i++)
             // {
@@ -125,16 +121,18 @@ namespace XO3
             i1 = -1; j1 = -1;
             i2 = -1; j2 = -1;
             // { labvit
+            
             for(int i = 0; i < cell_count; i++){
                 char pi = P[i,0];
                 {
-                    int j = 1;
+                    int j = 0;
                     for(; j < cell_count; j++)
                        if( pi != P[i,j]) 
                          break;
-                    if( j == cell_count - 1){
+                    if( j == cell_count ){
+                        j = j - 1;
                         i1 = i; j1 = 0;
-                        i2 = 0i; j2 = j;
+                        i2 = i; j2 = j;
                         
                         if (P[i1,j1] == 'X') { return Result.X; }
                         if (P[i1,j1] == 'O') { return Result.O; }
@@ -143,11 +141,12 @@ namespace XO3
                 }
                 pi = P[0,i];
                 {
-                    int j = 1;
+                    int j = 0;
                     for(; j < cell_count; j++)
                        if( pi != P[j,i]) 
                          break;
-                    if( j == cell_count - 1){
+                    if( j == cell_count ){
+                        j = j - 1;
                         i1 = 0; j1 = i;
                         i2 = j; j2 = i;
                         
@@ -166,7 +165,8 @@ namespace XO3
                     if( pi != P[i,i]) 
                              break;
                 }
-                if( i == cell_count - 1){
+                if( i == cell_count ){
+                    i = i - 1;
                     i1 = 0; j1 = 0;
                     i2 = i; j2 = i;
                     
@@ -183,7 +183,8 @@ namespace XO3
                     if( pi != P[i,cell_count - i - 1]) 
                              break;
                 }
-                if( i == cell_count - 1){
+                if( i == cell_count ){
+                    i = i - 1;
                     i1 = 0; j1 = i;
                     i2 = i; j2 = 0;
                     
@@ -207,8 +208,8 @@ namespace XO3
 
             return Result.Non;
             // } labvit
-/*
 
+            /*
             if ((P[0, 0] == P[0, 1]) && (P[0, 1] == P[0, 2]))
             {
                 i1 = 0; j1 = 0;
@@ -216,6 +217,24 @@ namespace XO3
 
                 if (P[0, 0] == 'X') { return Result.X; }
                 if (P[0, 0] == 'O') { return Result.O; }
+            }
+            
+
+            char p = P[0,0];
+            int ii = 0;
+            for( ; ii< 3; ii++)
+            {
+                if (p != P[0, ii]) break;
+            }
+
+            if( ii == 3)
+            {
+                i1 = 0; j1 = 0;
+                i2 = 0; j2 = 2;
+
+                if (P[0, 0] == 'X') { return Result.X; }
+                if (P[0, 0] == 'O') { return Result.O; }
+
             }
 
             if ((P[1, 0] == P[1, 1]) && (P[1, 1] == P[1, 2]))
@@ -280,19 +299,18 @@ namespace XO3
                 if (P[0, 2] == 'X') { return Result.X; }
                 if (P[0, 2] == 'O') { return Result.O; }
             }
-*/
-            // for (int i = 0; i < 3; i++)
-            // {
-            //     for (int j = 0; j < 3; j++)
-            //     {
-            //         if(P[i, j] == ' ')
-            //         {
-            //             return Result.Game;
-            //         }
-            //     }
-            // }
 
-            // return Result.Non;
+             for (int i = 0; i < 3; i++)
+             {
+                 for (int j = 0; j < 3; j++)
+                 {
+                     if(P[i, j] == ' ')
+                     {
+                         return Result.Game;
+                     }
+                }
+             }
+             return Result.Non;*/
         }
 
         public bool Mark(int i, int j, char C)

@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections;
 
 namespace XO3
@@ -44,7 +33,7 @@ namespace XO3
 
             int[] As = Get_As(s);
 
-            if (As.Count() < 1)
+            if (As == null)
             {
                 return -1;
             }
@@ -88,7 +77,8 @@ namespace XO3
 
             if (N == 0)
             {
-                return null;
+               return null;
+                //return new;
             }
             else
             {

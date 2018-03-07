@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace XO3
 {
@@ -163,7 +158,7 @@ namespace XO3
 
             ForWin[ 2*cell_count + 1] = new TCoords();
             for(int j = 0; j < cell_count; j++)
-                ForWin[ 2*cell_count + 1].Add(new TCoord(i,cell_count - i - 1));
+                ForWin[ 2*cell_count + 1].Add(new TCoord(j,cell_count - j - 1));
 
             ///
             /////// end labvit
@@ -188,11 +183,13 @@ namespace XO3
         // }
    
         // { labvit
-        public TCoords(){} // labvit
+        public TCoords(){
+            C = new List<TCoord>();
+        } // labvit
       
         public int cell_count { get{return 4;} }
 
-        public void add(TCoord C1){
+        public void Add(TCoord C1){
             C.Add(C1);
         }
         // } labvit

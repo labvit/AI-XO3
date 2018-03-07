@@ -1,14 +1,7 @@
 ﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -18,7 +11,7 @@ namespace XO3
     class TPole
     {
         public Canvas g;
-        public int cell_count{ get{ return 4; } } // labvit
+        public int cell_count { get { return 4; } } // labvit
         TextBox tb;
         TextBox tbCount;
         public double H;
@@ -36,7 +29,7 @@ namespace XO3
         {
             this.Base = Base;
             this.QL = QL;
-        
+
             this.g = g;
             this.tb = tb;
             this.tbCount = tbCount;
@@ -78,12 +71,12 @@ namespace XO3
             Brush br = Brushes.Blue;
 
             // for (int i = 0; i < 4; i++)
-            for (int i = 0; i < cell_count + 1 ; i++) // labvit
+            for (int i = 0; i < cell_count + 1; i++) // labvit
             {
                 Line L = new Line();
                 L.Stroke = br;
                 // L.X1 = (H / 3) * i;
-                L.X1 = (H / cell_count ) * i; // labvit
+                L.X1 = (H / cell_count) * i; // labvit
                 L.X2 = L.X1;
                 L.Y1 = 0;
                 L.Y2 = H;
@@ -106,7 +99,7 @@ namespace XO3
         {
             get
             {
-                if(V == 'X')
+                if (V == 'X')
                 {
                     return true;
                 }
@@ -126,11 +119,11 @@ namespace XO3
                 return Pos.Who(out i1, out j1, out i2, out j2);
             }
 
-            if(Pos.Mark(i, j, V))
+            if (Pos.Mark(i, j, V))
             {
                 DrawMark(i, j);
 
-                if(V == 'X')
+                if (V == 'X')
                 {
                     V = 'O';
                 }
@@ -168,7 +161,7 @@ namespace XO3
                     Init();
                 }
 
-                if ((res == Result.Game)&&(V == 'O'))
+                if ((res == Result.Game) && (V == 'O'))
                 {
                     Run(); // Ход машины
                 }
@@ -185,7 +178,7 @@ namespace XO3
         {
             TPosition res = Pos.Copy();
 
-            if(res.Mark(i, j, V))
+            if (res.Mark(i, j, V))
             {
                 return res;
             }
@@ -282,7 +275,7 @@ namespace XO3
             // double H3 = H / 3;
             double H3 = H / cell_count; // labvit
 
-            if(V == 'X')
+            if (V == 'X')
             {
                 Brush br = Brushes.Red;
 
@@ -330,39 +323,41 @@ namespace XO3
             // double H3 = H / 3.0;
             double H3 = H / cell_count; // labvit
 
-        //     if (x < H3)
-        //     {
-        //         i = 0;
-        //     }
-        //     if ((x > H3) && (x < H3 * 2))
-        //     {
-        //         i = 1;
-        //     }
-        //     if (x > 2 * H3)
-        //     {
-        //         i = 2;
-        //     }
+            //     if (x < H3)
+            //     {
+            //         i = 0;
+            //     }
+            //     if ((x > H3) && (x < H3 * 2))
+            //     {
+            //         i = 1;
+            //     }
+            //     if (x > 2 * H3)
+            //     {
+            //         i = 2;
+            //     }
 
-        //     if (y < H3)
-        //     {
-        //         j = 0;
-        //     }
-        //     if ((y > H3) && (y < H3 * 2))
-        //     {
-        //         j = 1;
-        //     }
-        //     if (y > 2 * H3)
-        //     {
-        //         j = 2;
-        //     }
-        // }
-          // { labvit
-          for(int counter =0; counter < cell_count; counter++){
-          	if( x > H3 * counter )
-          	    i++;
-          	if( y > H3 * counter)
-          	    j++;
-          }
-         // } labvit
+            //     if (y < H3)
+            //     {
+            //         j = 0;
+            //     }
+            //     if ((y > H3) && (y < H3 * 2))
+            //     {
+            //         j = 1;
+            //     }
+            //     if (y > 2 * H3)
+            //     {
+            //         j = 2;
+            //     }
+            // }
+            // { labvit
+            for (int counter = 0; counter < cell_count; counter++)
+            {
+                if (x > H3 * counter)
+                    i++;
+                if (y > H3 * counter)
+                    j++;
+            }
+            // } labvit
+        }
     }
 }
